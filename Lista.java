@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class Lista<T> {
 
     Nodo<T> head;
@@ -35,15 +37,32 @@ public class Lista<T> {
     }
 
     public void aggiungiInPosizione(T dato, int posizione) {
-        Nodo <T> nuovoNodo = new Nodo<>(dato);
-        Nodo<T> curr = head;
-        currI = 0;
-        while (currI<posizione-1) {
-            curr = curr.next;
-            ++currI;
+        if (posizione==0) {
+            this.aggiungiInTesta(dato);
+        } else {
+            Nodo<T> curr = head;
+            currI = 0;
+            while (currI<posizione-1 && curr.next!=null) {
+                curr = curr.next;
+                ++currI;
+            }
+            if (curr.next!=null) {
+                Nodo <T> nuovoNodo = new Nodo<>(dato);
+                nuovoNodo.next = curr.next;
+                curr.next = nuovoNodo;
+            } else {
+                throw new IndexOutOfBoundsException("Posizione oltre la Lista");
+            }
+            
         }
-        nuovoNodo.next = curr.next;
-        curr.next = nuovoNodo;
+        
+    }
+
+    public T leggiTesta() {
+        if (head == null) {
+            throw new NoSuchElementException("Lista vuota");
+        }
+        return head.dato;
     }
 
 }
