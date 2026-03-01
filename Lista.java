@@ -64,5 +64,32 @@ public class Lista<T> {
         }
         return head.dato;
     }
+    
+    public T leggiCoda() {
+        if (head == null) {
+            throw new NoSuchElementException("Lista vuota");
+        }
+        Nodo<T> current = head;
+        while (current.next!=null) {
+            current = current.next;
+        }
+        return current.dato;
+    }
+
+    public T leggiinPosizione() {
+        if (head==null) {
+            throw new NoSuchElementException("Lista vuota");
+        }
+        if (posizione<0) {
+            throw new IndexOutOfBoundsException("Posizione negativa");
+        } 
+        Nodo <T> curr = head;
+        int currI = 0;
+        while (currI<posizione-1 && curr.next!=null) {
+            curr = curr.next;
+            currI++;
+        }
+        return curr.dato;
+    }
 
 }
